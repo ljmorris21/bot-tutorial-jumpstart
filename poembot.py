@@ -19,9 +19,9 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 api = tweepy.API(auth)
 
 # gather some corpora from GitHub using requests; these are in JSON format
-animal_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/common.json')
-veg_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/foods/vegetables.json')
-menu_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/foods/menuItems.json')
+animal_response = requests.get('https://raw.githubusercontent.com/ljmorris21/corpora/master/data/animals/common.json')
+veg_response = requests.get('https://raw.githubusercontent.com/ljmorris21/corpora/master/data/foods/vegetables.json')
+menu_response = requests.get('https://raw.githubusercontent.com/ljmorris21/corpora/master/data/foods/menuItems.json')
 
 # Extract a Python-readable list from each response
 animals = animal_response.json()['animals']
@@ -49,8 +49,10 @@ poem = 'If you give a {0} a {1} they are going to ask for {2}' \
 for line in poem:
    if len(poem) > 0:
       try:
+         print('About to tweet:')
          print(poem)
          api.update_status(status=poem)
+         print('Tweeted.\n...')
       except: 
          print("Duplicate")
       time.sleep(120)
