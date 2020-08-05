@@ -44,7 +44,7 @@ menu_chosen = menu[menu_num].lower()
 # \n means insert a line break
 # \ at end of line just splits the line in the code, so that the code can be read more easily 
 
-poem = 'If you give a {0} a {1} they are going to ask for a {2}' \
+poem = 'If you give a {0} a {1} they are going to ask for an {2}' \
    .format(animals_chosen, veg_chosen, menu_chosen)
 for line in poem:
    print(poem)
