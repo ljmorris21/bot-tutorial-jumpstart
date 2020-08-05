@@ -46,18 +46,16 @@ menu_chosen = menu[menu_num].lower()
 
 poem = 'If you give a {0} a {1} they are going to ask for {2}' \
    .format(animals_chosen, veg_chosen, menu_chosen)
-for line in poem:
-   if len(poem) > 0:
-      try:
-         print('About to tweet:')
-         print(poem)
-         api.update_status(status=poem)
-         print('Tweeted.\n...')
-      except: 
-         print("Duplicate")
-      time.sleep(120)
-   else:
-      pass
+
+try:
+   print('About to tweet:')
+   print(poem)
+   api.update_status(status=poem)
+   print('Tweeted.\n...')
+except: 
+   print("Duplicate")
+time.sleep(120)
+
  
 
 
