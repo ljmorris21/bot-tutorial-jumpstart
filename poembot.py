@@ -13,68 +13,43 @@
 import requests
 from random import randint
 from credentials import *
-import tweepy
+import tweepy, time
 auth = tweepy.OAuthHandler(API_KEY, API_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 api = tweepy.API(auth)
 
 # gather some corpora from GitHub using requests; these are in JSON format
-fruit_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/foods/fruits.json')
-adjectives_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/words/adjs.json')
-colors_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/colors/crayola.json')
+animal_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/common.json')
+veg_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/foods/vegetables.json')
+menu_response = requests.get('https://raw.githubusercontent.com/dariusk/corpora/master/data/foods/menuItems.json')
 
 # Extract a Python-readable list from each response
-fruits = fruit_response.json()['fruits']
-adjectives = adjectives_response.json()['adjs']
-colors = colors_response.json()['colors']
+animals = animal_response.json()['animals']
+veg = veg_response.json()['vegetables']
+menu = menu_response.json()['menuItems']
     
 # Pick random numbers
 # randint(0, len(xxx)-1) means choose random number between 0 and the length of the 
 # word list named xxx 
-fruit_num = randint(0, len(fruits)-1) 
-adjectives_num = randint(0, len(adjectives)-1)
-color_num = randint(0, len(colors)-1)
+animals_num = randint(0, len(animals)-1) 
+veg_num = randint(0, len(veg)-1)
+menu_num = randint(0, len(menu)-1)
 
 # Choose random items from each list using those random numbers
-fruit_chosen = fruits[fruit_num].lower()
-color_chosen = colors[color_num]['color'].lower()
-adjective_chosen = adjectives[adjectives_num].lower()
+animals_chosen = animals[animals_num].lower()
+veg_chosen = veg[veg_num].lower()
+menu_chosen = menu[menu_num].lower()
 
 # Fill in the blanks of the poem with the randomly chosen items
 # \n means insert a line break
 # \ at end of line just splits the line in the code, so that the code can be read more easily 
 
-poem = 'This is just to say\n\n\
-I have eaten\n\
-the {0}s \n\
-that were in\n\
-the icebox \n\n\
-and which\n\
-you were probably\n\
-saving\n\
-for breakfast\n\n\
-Forgive me\n\
-they were delicious\n\
-so {1} \n\
-and so {2}' \
-   .format(fruit_chosen, color_chosen, adjective_chosen)
+poem = 'If you give a {0} a {1} they are going to ask for a {2}' \
+   .format(animals_chosen, veg_chosen, menu_chosen)
+for line in poem:
+   print(poem)
+   api.update_status(status=poem)
+   time.sleep(120)
 
-api.update_status(status=poem)
-print(poem)
 
-## SAMPLE OUTPUT
 
-## I have eaten
-## the kumquats
-## that were in
-## the icebox
-##
-## and which
-## you were probably
-## saving
-## for breakfast
-##
-## Forgive me
-## they were delicious
-## so unmellow yellow
-## and so waterproof

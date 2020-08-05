@@ -26,13 +26,20 @@ tweet_text = filename.readlines()
 filename.close()
 
 # loop through the tweet_list
-for line in tweet_text[63010:63559]: # Will only write first 5 lines
-    print('About to tweet:')
-    print(line)
-    api.update_status(status=line)
-    print('Tweeted.\n...')
-    time.sleep(30)
-
+for line in tweet_text[0:73345]: 
+    if len(line) > 0:
+        if " sewer " in line:
+            try:
+                print('About to tweet:')
+                print(line)
+                api.update_status(status=line)
+                print('Tweeted.\n...')
+            except:
+                print("Duplicate")
+            time.sleep(30)
+    else:
+        pass 
+   
 print("All done!")
 
 # To quit early: CTRL+C and wait a few seconds
